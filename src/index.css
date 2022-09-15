@@ -20,3 +20,19 @@ code {
 .defalt-height {
   min-height: calc(100vh - 56px - 120px);
 }
+
+.text-box {
+  border: none;
+}
+
+.textarea-box {
+  border: none;
+  padding: 10px;
+  resize: none;
+  height: 400px;
+}
+
+.form-control:focus {
+  border-color: none !important;
+  box-shadow: none !important;
+}

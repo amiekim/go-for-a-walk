@@ -6,3 +6,4 @@
 1. `react`
 2. `react-router-dom`
 3. `bootstrap`
+4. `firebase`

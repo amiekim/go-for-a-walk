@@ -1,10 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
 
-const Login = () => {
+const Login = (props) => {
+  const navigate = useNavigate();
+  const { authService } = props;
+
+  const successLogin = (userId) => {
+    navigate("/diary", {
+      state: {
+        id: {id: userId}
+      }
+    })
+  }
+  const onLogin = (e) => {
+    // 버튼에 있는 텍스트 이용
+    authService
+    .login(e.currentTarget.textContent)
+    .then((data) => successLogin(data.user.uid));
+  }
+  useEffect(() => {
+    // onAuthChange 함수 호출
+    authService
+    .onAuthChange((user) => {
+      // 사용자가 바뀌면
+      user && successLogin(user.uid);
+    });
+  },[])
+
   return (
     <>
       <Header />
@@ -30,6 +56,11 @@ const Login = () => {
                 Submit
               </Button>
           </Form>
+          <ul>
+            <li>
+              <button onClick={onLogin}>Google</button>
+            </li>
+          </ul>
         </div>
       </section>
       <Footer />

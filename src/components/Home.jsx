@@ -20,15 +20,13 @@ const Home = () => {
         <div className="album py-5 bg-light">
           <Row xs={1} sm={2} lg={3} xl={4} className="g-4">
             {Array.from({ length: 4 }).map((_, idx) => (
-              <Col>
+              <Col key={idx}>
                 <Card>
                   <Card.Img variant="top card-img-box" src="images/shepherd-dog.jpg" />
                   <Card.Body>
-                    <Card.Title>Card title</Card.Title>
+                    <Card.Title>제목</Card.Title>
                     <Card.Text>
-                      This is a longer card with supporting text below as a natural
-                      lead-in to additional content. This content is a little bit
-                      longer.
+                      내용
                     </Card.Text>
                   </Card.Body>
                 </Card>

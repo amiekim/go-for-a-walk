@@ -4,12 +4,17 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AuthService from './service/auth_service';
+import { firebaseApp } from './service/firebase';
 
+  // auth를 디펜던시 인젝션해줌
+const authService = new AuthService(firebaseApp);
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <App authService={authService}/>
     </BrowserRouter>
   </React.StrictMode>
 );
