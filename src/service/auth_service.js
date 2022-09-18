@@ -1,4 +1,4 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 class AuthService {
     constructor() {
@@ -11,7 +11,8 @@ class AuthService {
         return signInWithPopup(this.firebaseAuth, authProvider);
     }
     logout() {
-        this.firebaseAuth.signOut();
+        console.log("???")
+        return signOut(this.firebaseAuth)
     }
     onAuthChange(onUserChanged) {
         this.firebaseAuth.onAuthStateChanged((user) => {

@@ -1,25 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
-import './index.css';
-import App from './App';
+import { Provider } from 'react-redux'
+
 import reportWebVitals from './reportWebVitals';
 import AuthService from './service/auth_service';
-import { firebaseApp } from './service/firebase';
+import DiaryRepository from './service/diary_repository';
+import { firebaseApp, database } from './service/firebase';
 
-  // auth를 디펜던시 인젝션해줌
+import { store, persistor } from "./redux/store"
+import { PersistGate } from 'redux-persist/integration/react';
+
+import App from './App';
+import './index.css';
+
+// auth를 디펜던시 인젝션해줌
 const authService = new AuthService(firebaseApp);
+const repositoryService = new DiaryRepository(database)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App authService={authService}/>
-    </BrowserRouter>
-  </React.StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <App authService={authService} repositoryService={repositoryService}/>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

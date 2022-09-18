@@ -3,7 +3,15 @@
 `산책을 하고 난 후 남기는 기록`
 
 ### 필요지식
-1. `react`
-2. `react-router-dom`
-3. `bootstrap`
-4. `firebase`
+1. `React`
+2. `React-router-dom`
+3. `React Redux`
+4. `bootstrap`
+5. `firebase`
+
+### 파일구조
+├── node_modules
+├── package.json
+├── public
+├── src
+└── README.md
