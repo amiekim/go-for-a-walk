@@ -5,17 +5,27 @@ class DiaryRepository {
         this.firebaseDatabase = getDatabase();
     }
     newDiary(diaryData) {
-        const {userId, title, memo} = diaryData
-        set(ref(this.firebaseDatabase, 'users/' + userId), {
+        const {regTime, userEmail, title, memo, fileName, fileUrl} = diaryData
+        const userId = userEmail.split("@");
+        const emailAddr = userId[1].split(".")[0];
+        const repoName = userId[0] + '_a_' + emailAddr
+
+        set(ref(this.firebaseDatabase, 'user/' + repoName), {
+            regTime,
             title,
             memo,
+            fileName,
+            fileUrl
           });
     }
     openDiary(diaryData) {
-        const {userId} = diaryData
-        const starCountRef = ref(this.firebaseDatabase, 'users/' + userId);
+        const {userEmail} = diaryData;
+        const userId = userEmail.split("@");
+        const emailAddr = userId[1].split(".")[0];
+        const repoName = userId[0] + '_a_' + emailAddr
+        const starCountRef = ref(this.firebaseDatabase, 'user/' + repoName);
         onValue(starCountRef, (snapshot) => {
-        console.log(snapshot.val());
+            console.log(snapshot.val());
         });
     }
 }

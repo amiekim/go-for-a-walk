@@ -16,9 +16,9 @@ const Header = (props) => {
   const onLogOut = () => {
     authService
     .logout()
-    .then((result) => {
+    .then(() => {
       localStorage.removeItem("userEmail")
-      navigate("/")
+      navigate("/login")
     });
   }
 
@@ -41,6 +41,7 @@ const Header = (props) => {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
+                  {userEmail && <Nav.Link href="/diary">글쓰기</Nav.Link>}
                   {userEmail ? (<div className='nav-link' onClick={onLogOut}>Logout</div>)
                   :(<Nav.Link href="/login">Login</Nav.Link>)
                   }
