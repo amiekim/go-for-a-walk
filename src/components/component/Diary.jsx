@@ -33,12 +33,11 @@ const Diary = (props) => {
     return str;
   }
   const onSubmit = (e) => {
+    e.preventDefault();
     const regTime = dayjs().format('YYYY-MM-DD_HH:mm:ss');
     let diaryData = {};
     const chkTitle = XSSCheck(title);
     const chkMemo = XSSCheck(memo);
-
-    e.preventDefault();
     if(regTime && userEmail) {
       diaryData = {
         regTime,
@@ -51,7 +50,6 @@ const Diary = (props) => {
       repositoryService
       .newDiary({...diaryData})
       navigate("/")
-      
     } else alert("일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.")
   }
   const readDiaryDatas = () => {
