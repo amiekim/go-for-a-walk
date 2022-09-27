@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Diary = (props) => {
-  const { repositoryService } = props
+  const { repositoryService, FileInput } = props
   const navigate = useNavigate()
   const userInfo = useSelector(state => state.loginReducer)
   const formRef = useRef();
@@ -97,7 +97,7 @@ const Diary = (props) => {
           </div>
         </section>
       </section>
-      
+      <FileInput />
       <Footer />
     </>
   )

@@ -25,7 +25,7 @@ class DiaryRepository {
         const repoName = userId[0] + '_a_' + emailAddr
         const starCountRef = ref(this.firebaseDatabase, 'user/' + repoName);
         onValue(starCountRef, (snapshot) => {
-            console.log(snapshot.val());
+            // console.log(snapshot.val());
         });
     }
 }

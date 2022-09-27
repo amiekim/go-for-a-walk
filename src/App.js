@@ -8,7 +8,7 @@ import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 
 function App(props) {
-  const { authService, repositoryService } = props;
+  const { authService, repositoryService, FileInput } = props;
 
   return (
         <>
@@ -17,7 +17,7 @@ function App(props) {
             <Route path="/login" element={<Login authService={authService} />} />
             <Route path="/diary" element={
             <PrivateRoute>
-              <Diary repositoryService={repositoryService} />
+              <Diary repositoryService={repositoryService} FileInput={FileInput}/>
             </PrivateRoute>
             } />
             <Route path="/write" element={<Write />} />
