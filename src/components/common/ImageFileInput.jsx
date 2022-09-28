@@ -1,13 +1,13 @@
 import React, { useRef } from 'react'
 
 const ImageFileInput = (props) => {
-  const { imageUploder, onFileChange } = props
+  const { imageUploader, onFileChange } = props
   const inputRef = useRef();
   const onButtonClick = () => {
     inputRef.current.click();
   }
   const onChange = async(event) => {
-    const uploaded = imageUploder.upload(event.target.files[0])
+    const uploaded = imageUploader.upload(event.target.files[0])
     console.log(uploaded,"...")
     // onFileChange({
     //   name: "fileName",
