@@ -4,8 +4,26 @@ import Footer from './Footer'
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-const Home = () => {
+const Home = (props) => {
+  const { repositoryService } = props;
+  const [myDiary, setMyDiary] = useState([]);
+  const userEmail = localStorage.getItem("userEmail");
+
+  const getData = (data) => {
+    setMyDiary(Object.values(data)||[]);
+  }
+  const readDiaryDatas = async() => {
+    // 읽어들이기
+    repositoryService.openDiary({userEmail, getData});
+  }
+
+  useEffect(() => {
+    if(userEmail) readDiaryDatas();
+  },[]);
+
   return (
     <>
       <Header />
@@ -19,7 +37,35 @@ const Home = () => {
         </section>
         <div className="album py-5 bg-light">
           <Row xs={1} sm={2} lg={3} xl={4} className="g-4">
-            {Array.from({ length: 4 }).map((_, idx) => (
+            {userEmail?
+            (
+              myDiary.map((i, idx) => (
+                <Col key={idx}>
+                  <Card>
+                    {i.imgUrl?
+                      (
+                        <Card.Img variant="top card-img-box" src={i.imgUrl} />
+                      )
+                      :(
+                        <div className='card-img-top card-img-box no-diary-img'>
+                          <div>
+                          글로 표현한 마음 속 풍경
+                          </div>
+                        </div>
+                      )
+                    }
+                    <Card.Body>
+                      <Card.Title>{i.title}</Card.Title>
+                      <Card.Text>
+                        {i.memo}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))
+            )
+            :(
+              Array.from({ length: 4 }).map((_, idx) => (
               <Col key={idx}>
                 <Card>
                   <Card.Img variant="top card-img-box" src="images/shepherd-dog.jpg" />
@@ -31,7 +77,8 @@ const Home = () => {
                   </Card.Body>
                 </Card>
               </Col>
-            ))}
+            ))
+            )}
           </Row>
         </div>
       <Footer />

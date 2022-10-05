@@ -13,7 +13,7 @@ function App(props) {
   return (
         <>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home repositoryService={repositoryService} />} />
             <Route path="/login" element={<Login authService={authService} />} />
             <Route path="/diary" element={
             <PrivateRoute>

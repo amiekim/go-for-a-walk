@@ -25,6 +25,8 @@ const Login = (props) => {
       successLogin(data.user)
     });
   }
+
+  
   useEffect(() => {
     // onAuthChange 함수 호출
     authService

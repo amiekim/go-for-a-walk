@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className='text-muted py-5'>footer</footer>
+    <footer className='text-muted p-5'>Copyright(c)2022 by Amie</footer>
   )
 }
 

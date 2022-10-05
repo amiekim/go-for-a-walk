@@ -42,7 +42,7 @@ const Header = (props) => {
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                   {userEmail && <Nav.Link href="/diary">글쓰기</Nav.Link>}
-                  {userEmail ? (<div className='nav-link' onClick={onLogOut}>Logout</div>)
+                  {userEmail ? (<div className='nav-link btn-cursor-pointer' onClick={onLogOut}>Logout</div>)
                   :(<Nav.Link href="/login">Login</Nav.Link>)
                   }
                 </Nav>

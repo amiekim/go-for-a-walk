@@ -11,8 +11,7 @@ class AuthService {
         return signInWithPopup(this.firebaseAuth, authProvider);
     }
     logout() {
-        console.log("???")
-        return signOut(this.firebaseAuth)
+        return signOut(this.firebaseAuth);
     }
     onAuthChange(onUserChanged) {
         this.firebaseAuth.onAuthStateChanged((user) => {
