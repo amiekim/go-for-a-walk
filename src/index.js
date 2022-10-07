@@ -29,7 +29,7 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <App authService={authService} repositoryService={repositoryService} FileInput={FileInput}/>
+          <App authService={authService} repositoryService={repositoryService} FileInput={FileInput} imageUploader={imageUploader}/>
         </BrowserRouter>
       </PersistGate>
     </Provider>

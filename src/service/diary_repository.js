@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref, set, onValue, remove } from "firebase/database";
 
 class DiaryRepository {
     constructor () {
@@ -8,16 +8,42 @@ class DiaryRepository {
         const {divTime, regTime, userEmail, title, memo, imgName, imgUrl} = diaryData
         const userId = userEmail.split("@");
         const emailAddr = userId[1].split(".")[0];
-        const repoName = userId[0] + '_a_' + emailAddr
+        const repoName = userId[0] + '_a_' + emailAddr;
 
-        set(ref(this.firebaseDatabase, 'user/' + repoName + `/${divTime}`), {
+        return set(ref(this.firebaseDatabase, 'user/' + repoName + `/${divTime}`), {
+            memoIndex: divTime,
             regTime,
             title,
             memo,
             imgName,
-            imgUrl
+            imgUrl,
+            updateTime: "",
           });
     }
+    updateDiary(diaryData) {
+        const {divTime, userEmail, title, memo, imgName, imgUrl, updateTime} = diaryData
+        const userId = userEmail.split("@");
+        const emailAddr = userId[1].split(".")[0];
+        const repoName = userId[0] + '_a_' + emailAddr;
+
+        return set(ref(this.firebaseDatabase, 'user/' + repoName + `/${divTime}`), {
+            memoIndex: divTime,
+            title,
+            memo,
+            imgName,
+            imgUrl,
+            updateTime
+          });
+    }
+    delDiary(diaryData) {
+        const {divTime, userEmail} = diaryData
+        const userId = userEmail.split("@");
+        const emailAddr = userId[1].split(".")[0];
+        const repoName = userId[0] + '_a_' + emailAddr;
+
+        return remove(ref(this.firebaseDatabase, 'user/' + repoName + `/${divTime}`), {});
+    }
+
     openDiary(diaryData) {
         const {userEmail, getData} = diaryData;
         const userId = userEmail.split("@");
@@ -25,7 +51,7 @@ class DiaryRepository {
         const repoName = userId[0] + '_a_' + emailAddr
         let result = false;
         const starCountRef = ref(this.firebaseDatabase, 'user/' + repoName);
-        onValue(starCountRef, (snapshot) => {
+        return onValue(starCountRef, (snapshot) => {
             result = snapshot.val();
             getData(result);
         });

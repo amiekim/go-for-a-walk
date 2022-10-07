@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
@@ -11,18 +11,20 @@ import Header from '../Header'
 import {xssCheck} from "../../util/checkFunctions"
 
 
-const Diary = (props) => {
+const Update = (props) => {
   const { repositoryService, FileInput, imageUploader } = props
+  const { diaryIndex } = useParams();  
+  const location = useLocation();
   const navigate = useNavigate();
-  const userInfo = useSelector(state => state.loginReducer);
-  const formRef = useRef();
   const titleRef = useRef();
   const memoRef = useRef();
 
+  const { state } = location; 
   const [title, setTitle] = useState("");
   const [memo, setMemo] = useState("");
-  const [imgFile, setImgFile] = useState({});
-
+  const [imgFile, setImgFile] = useState(null);
+  const [savedImgUrl, setSavedImgUrl] = useState(null);
+  
   const userEmail = localStorage.getItem("userEmail");
 
   const saveImg = async() => {
@@ -33,36 +35,58 @@ const Diary = (props) => {
   }
   const onSubmit = async(e) => {
     let imgResult = false;
-
     e.preventDefault();
       // 글 저장시 CLOUDINARY에 이미지 저장
       if(imgFile) imgResult = await saveImg();
+      else if(savedImgUrl) {
+        imgResult = {
+          imgName:state.imgName || "",
+          imgUrl:savedImgUrl
+        }
+      }
 
       // for path
       let divTime = 0;
       const regTime = dayjs();
-      const hourToSecond = regTime.hour() * 3600;
-      const minuteToSecond = regTime.minute() * 60;
-      const toSeconds = regTime.second();
-      divTime =  `${regTime.format('MMMDD_YY')}_${hourToSecond + minuteToSecond + toSeconds}`;
-
+  
       let diaryData = {};
       const chkTitle = xssCheck(title);
       const chkMemo = xssCheck(memo);
-      if(regTime && userEmail) {
+      if(diaryIndex && userEmail) {
         diaryData = {
-          divTime,
-          regTime: regTime.format('YYYY-MM-DD HH:mm'),
+          divTime: diaryIndex,
           userEmail,
           title: chkTitle,
           memo: chkMemo,
           imgName: imgResult && imgResult.original_filename ? imgResult.original_filename : "",
           imgUrl: imgResult && imgResult.url ? imgResult.url : "",
+          updateTime: regTime.format('YYYY-MM-DD HH:mm'),
         }
-        const result = repositoryService.newDiary({...diaryData});
+        
+        const result = await repositoryService.updateDiary({...diaryData});
         if(result) navigate("/");
       } else alert("일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
   }
+  const delPage = async() => {
+    if(diaryIndex && userEmail) {
+      let diaryData = {
+        divTime: diaryIndex,
+        userEmail,
+      }
+      
+      const result = repositoryService.delDiary({...diaryData});
+      if(result) navigate("/");
+    } else alert("일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+  }
+  
+  useEffect(() => {
+    if(state) {
+      setMemo(state.memo||"");
+      setTitle(state.title||"");
+      if(state.imgUrl) setSavedImgUrl(state.imgUrl);
+    }
+  },[])
+
 
   return (
     <>
@@ -90,10 +114,11 @@ const Diary = (props) => {
               ></textarea>
             <Form.Group controlId="formFile" className="mb-3">
             <Form.Label className="mt-2">기억에 남는 사진 한장</Form.Label>
-            <FileInput setImgFile={setImgFile} />
+            <FileInput setImgFile={setImgFile} savedImgUrl={savedImgUrl} setSavedImgUrl={setSavedImgUrl}/>
             </Form.Group>
           </div>
           <div className="d-flex justify-content-end">
+            <Button variant='outline-danger mr2px' onClick={delPage}>삭제</Button>
             <Button variant='outline-secondary' onClick={onSubmit}>저장</Button>
           </div>
         </section>
@@ -106,7 +131,7 @@ const Diary = (props) => {
 
 
 
-export default Diary;
+export default Update;
 
 
 

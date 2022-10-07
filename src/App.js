@@ -3,12 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Login from './components/Login'
 import Diary from './components/component/Diary'
-import Write from './components/component/Write'
+import Update from './components/component/Update'
 import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 
 function App(props) {
-  const { authService, repositoryService, FileInput } = props;
+  const { authService, repositoryService, FileInput, imageUploader } = props;
+
 
   return (
         <>
@@ -17,10 +18,14 @@ function App(props) {
             <Route path="/login" element={<Login authService={authService} />} />
             <Route path="/diary" element={
             <PrivateRoute>
-              <Diary repositoryService={repositoryService} FileInput={FileInput}/>
+              <Diary repositoryService={repositoryService} FileInput={FileInput} imageUploader={imageUploader}/>
             </PrivateRoute>
             } />
-            <Route path="/write" element={<Write />} />
+            <Route path={"/update/:diaryIndex"} element={
+            <PrivateRoute>
+              <Update repositoryService={repositoryService} FileInput={FileInput} imageUploader={imageUploader}/>
+            </PrivateRoute>
+            } />
 
           </Routes>
         </>

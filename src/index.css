@@ -47,3 +47,61 @@ code {
 .btn-cursor-pointer {
   cursor: pointer;
 }
+
+.text-summerize-line1 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.text-summerize-line2 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.box-height140 {
+  height: 140px;
+}
+
+.no-display {
+  display: none;
+}
+
+.box200 {
+  height: 200px;
+}
+
+.img-bg-box {
+  position: relative;
+  display: inline-block;
+  box-sizing: content-box !important;
+}
+
+.box200 img {
+  height: 100%;
+}
+
+.above-icon-align-left {
+  position: absolute;
+  background-color: transparent;
+  right: 10px;
+  top: 10px;
+}
+
+.f-size20 {
+  font-size: 20px;
+}
+
+.btn-no-border{
+  z-index: 10;
+  border: none;
+}
+
+.mr2px {
+  margin-right: 2px;
+}
