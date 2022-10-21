@@ -4,12 +4,13 @@ let initialState = {
 };
 
 function loginReducer (state = initialState, action) {
-    const {type, payload} = action;
-    switch(type) {
+    switch(action.type) {
         case "LOGIN":
-            return {...state, isLogin:true, ...payload};
+            return {...state, userInfo : {...action.payload} ,isLogin: true };
+        case "LOGOUT":
+            return {...state, userInfo : {} , isLogin: false };
         default :
-            return {...state};
+            return state;
     }
 }
 

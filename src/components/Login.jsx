@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -13,10 +13,10 @@ const Login = (props) => {
   const successLogin = (userInfo) => {
     const userId = userInfo.uid;
     const userEmail = userInfo.email;
-    localStorage.setItem("userEmail", userEmail);
-    dispatch({type:"LOGIN", payload: {userInfo: {userId, userEmail}}});
-    navigate("/diary");
+    dispatch({type:"LOGIN", payload: { userId, userEmail }});
+    navigate("/");
   }
+  
   const onLogin = (e) => {
     // 버튼에 있는 텍스트 이용
     authService
@@ -33,10 +33,7 @@ const Login = (props) => {
     .onAuthChange((user) => {
     // 사용자가 바뀌면
       if(user) successLogin(user)
-      else {
-        localStorage.removeItem("userId");
-        localStorage.removeItem("userEmail");
-      }
+      else dispatch({type:"LOGOUT", payload: {} })
     });
   },[])
 

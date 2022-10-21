@@ -8,13 +8,13 @@ import dayjs from 'dayjs';
 
 import Footer from '../Footer'
 import Header from '../Header'
-import {xssCheck} from "../../util/checkFunctions"
+import { xssCheck } from "../../util/checkFunctions"
 
 
 const Diary = (props) => {
   const { repositoryService, FileInput, imageUploader } = props
   const navigate = useNavigate();
-  const userInfo = useSelector(state => state.loginReducer);
+  const { userInfo } = useSelector(state => state.loginReducer);
   const formRef = useRef();
   const titleRef = useRef();
   const memoRef = useRef();
@@ -23,10 +23,8 @@ const Diary = (props) => {
   const [memo, setMemo] = useState("");
   const [imgFile, setImgFile] = useState({});
 
-  const userEmail = localStorage.getItem("userEmail");
-
   const saveImg = async() => {
-    const uploaded = await imageUploader.upload(imgFile)
+    const uploaded = await imageUploader.upload(imgFile);
     if(!uploaded || !uploaded.url) {
       alert("일시적인 오류입니다. 다시 사진을 저장해주세요.");
     } else return uploaded;
@@ -37,7 +35,6 @@ const Diary = (props) => {
     e.preventDefault();
       // 글 저장시 CLOUDINARY에 이미지 저장
       if(imgFile) imgResult = await saveImg();
-
       // for path
       let divTime = 0;
       const regTime = dayjs();
@@ -49,11 +46,11 @@ const Diary = (props) => {
       let diaryData = {};
       const chkTitle = xssCheck(title);
       const chkMemo = xssCheck(memo);
-      if(regTime && userEmail) {
+      if(regTime && userInfo && userInfo.userEmail) {
         diaryData = {
           divTime,
           regTime: regTime.format('YYYY-MM-DD HH:mm'),
-          userEmail,
+          userEmail: userInfo.userEmail,
           title: chkTitle,
           memo: chkMemo,
           imgName: imgResult && imgResult.original_filename ? imgResult.original_filename : "",
@@ -98,7 +95,6 @@ const Diary = (props) => {
           </div>
         </section>
       </section>
-      
       <Footer />
     </>
   )

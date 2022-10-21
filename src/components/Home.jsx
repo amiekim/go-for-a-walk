@@ -4,31 +4,36 @@ import Footer from './Footer'
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MAIN_DUMMY_DATA } from "../util/data"
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Home = (props) => {
   const { repositoryService } = props;
   const navigate = useNavigate();
   const [myDiary, setMyDiary] = useState([]);
-  const userEmail = localStorage.getItem("userEmail");
+  const { userInfo } = useSelector(state => state.loginReducer);
 
   const getData = (data) => {
     setMyDiary(Object.values(data)||[]);
   }
   const readDiaryDatas = async() => {
-    // 읽어들이기
-    repositoryService.openDiary({userEmail, getData});
+    if(userInfo && userInfo.userEmail) {
+      // 읽어들이기
+      repositoryService.openDiary({
+        userEmail: userInfo.userEmail,
+        getData
+      });
+    }
   }
   const goDetail = (i) => {
     navigate(`/update/${i.memoIndex}` , {state : i});
   }
 
   useEffect(() => {
-    if(userEmail) readDiaryDatas();
-  },[]);
+    readDiaryDatas();
+  },[userInfo]);
 
   return (
     <>
@@ -45,7 +50,7 @@ const Home = (props) => {
           <Row xs={1} sm={2} lg={3} xl={4} className="g-4">
             {
               (
-                userEmail ?
+                userInfo && userInfo.userEmail ?
                 myDiary :
                 MAIN_DUMMY_DATA.length > 0 ?
                 MAIN_DUMMY_DATA :

@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 
 import Footer from '../Footer'
 import Header from '../Header'
-import {xssCheck} from "../../util/checkFunctions"
+import { xssCheck } from "../../util/checkFunctions"
 
 
 const Update = (props) => {
@@ -25,7 +25,7 @@ const Update = (props) => {
   const [imgFile, setImgFile] = useState(null);
   const [savedImgUrl, setSavedImgUrl] = useState(null);
   
-  const userEmail = localStorage.getItem("userEmail");
+  const { userInfo } = useSelector(state => state.loginReducer);
 
   const saveImg = async() => {
     const uploaded = await imageUploader.upload(imgFile)
@@ -46,16 +46,15 @@ const Update = (props) => {
       }
 
       // for path
-      let divTime = 0;
       const regTime = dayjs();
   
       let diaryData = {};
       const chkTitle = xssCheck(title);
       const chkMemo = xssCheck(memo);
-      if(diaryIndex && userEmail) {
+      if(diaryIndex && userInfo && userInfo.userEmail) {
         diaryData = {
           divTime: diaryIndex,
-          userEmail,
+          userEmail: userInfo.userEmail,
           title: chkTitle,
           memo: chkMemo,
           imgName: imgResult && imgResult.original_filename ? imgResult.original_filename : "",
@@ -68,10 +67,10 @@ const Update = (props) => {
       } else alert("일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
   }
   const delPage = async() => {
-    if(diaryIndex && userEmail) {
+    if(diaryIndex && userInfo && userInfo.userEmail) {
       let diaryData = {
         divTime: diaryIndex,
-        userEmail,
+        userEmail: userInfo.userEmail,
       }
       
       const result = repositoryService.delDiary({...diaryData});

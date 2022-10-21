@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import Home from './components/Home';
 import Login from './components/Login'
 import Diary from './components/component/Diary'
@@ -9,7 +10,6 @@ import PrivateRoute from './components/PrivateRoute';
 
 function App(props) {
   const { authService, repositoryService, FileInput, imageUploader } = props;
-
 
   return (
         <>

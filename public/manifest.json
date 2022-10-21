@@ -1,19 +1,19 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Go for a walk",
+  "name": "Go for a walk project",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "images/icon/favicon.svg",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "images/icon/favicon.svg",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "images/icon/favicon.svg",
       "type": "image/png",
       "sizes": "512x512"
     }

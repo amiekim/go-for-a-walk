@@ -8,23 +8,25 @@ import { useNavigate } from 'react-router-dom';
 
 import { firebaseApp } from '../service/firebase';
 import AuthService from "../service/auth_service"
+import { useDispatch, useSelector } from 'react-redux';
 
 const Header = (props) => {
   const authService = new AuthService(firebaseApp);
-  const userEmail = localStorage.getItem("userEmail")
+  const { userInfo } = useSelector(state => state.loginReducer);
+  const { userEmail } = userInfo;
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onLogOut = () => {
+  const onLogOut = async() => {
     authService
     .logout()
     .then(() => {
-      localStorage.removeItem("userEmail")
-      navigate("/login")
+      dispatch({type:"LOGOUT", payload: {} });
+      navigate("/");
     });
   }
 
   return (
     <>
-      {['md'].map((expand) => (
         <Navbar key={"md"} expand={"md"} className="border">
           <Container>
             <Navbar.Brand href="/">나의 산책이야기</Navbar.Brand>
@@ -42,15 +44,17 @@ const Header = (props) => {
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                   {userEmail && <Nav.Link href="/diary">글쓰기</Nav.Link>}
-                  {userEmail ? (<div className='nav-link btn-cursor-pointer' onClick={onLogOut}>Logout</div>)
-                  :(<Nav.Link href="/login">Login</Nav.Link>)
+                  {userEmail ?
+                    (
+                      <div className='nav-link btn-cursor-pointer' onClick={onLogOut}>Logout</div>
+                    ):
+                    (<Nav.Link href="/login">Login</Nav.Link>)
                   }
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
           </Container>
         </Navbar>
-      ))}
     </>
   );
 }
