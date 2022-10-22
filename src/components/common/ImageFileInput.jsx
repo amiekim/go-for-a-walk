@@ -29,8 +29,11 @@ const ImageFileInput = (props) => {
 
   const delTempImg = () => {
     inputRef.current.value = "";
-    setTempImg(null);
-    setImgFile(null);
+    if(savedImgUrl) setSavedImgUrl(null);
+    else {
+      setTempImg(null);
+      setImgFile(null);
+    }
   }
 
   const onChange = (e) => {

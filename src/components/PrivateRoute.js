@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
     const { userInfo } = useSelector(state => state.loginReducer);
-    if(!userInfo || !userInfo.userEmail) return <Navigate replace to="/login" />
+    if(!userInfo || !userInfo.userId) return <Navigate replace to="/login" />
     return children;
 };
 

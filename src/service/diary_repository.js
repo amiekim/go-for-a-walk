@@ -50,8 +50,8 @@ class DiaryRepository {
         const emailAddr = userId[1].split(".")[0];
         const repoName = userId[0] + '_a_' + emailAddr
         let result = false;
-        const starCountRef = ref(this.firebaseDatabase, 'user/' + repoName);
-        return onValue(starCountRef, (snapshot) => {
+        const getDiary = ref(this.firebaseDatabase, 'user/' + repoName);
+        return onValue(getDiary, (snapshot) => {
             result = snapshot.val();
             getData(result);
         });

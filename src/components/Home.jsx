@@ -50,7 +50,7 @@ const Home = (props) => {
           <Row xs={1} sm={2} lg={3} xl={4} className="g-4">
             {
               (
-                userInfo && userInfo.userEmail ?
+                userInfo && userInfo.userId ?
                 myDiary :
                 MAIN_DUMMY_DATA.length > 0 ?
                 MAIN_DUMMY_DATA :

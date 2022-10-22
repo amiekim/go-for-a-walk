@@ -1,41 +1,39 @@
 import React, { useEffect } from 'react'
 import { Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-const Login = (props) => {
-  const navigate = useNavigate();
+const Login = (props) => {  
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const { authService } = props;
 
+  const loggedOut = () => dispatch({type:"LOGOUT", payload: {} })
   const successLogin = (userInfo) => {
+    // stsTokenManager.accessToken
     const userId = userInfo.uid;
     const userEmail = userInfo.email;
+    console.log("re", userInfo)
     dispatch({type:"LOGIN", payload: { userId, userEmail }});
     navigate("/");
   }
   
-  const onLogin = (e) => {
+  const onLogin = async(e) => {
     // 버튼에 있는 텍스트 이용
-    authService
-    .login(e.currentTarget.textContent)
-    .then((data) => {
-      successLogin(data.user)
-    });
+    const result = await authService.login(e.currentTarget.textContent);
+    if(result) successLogin(result.user);
   }
-
   
   useEffect(() => {
     // onAuthChange 함수 호출
-    authService
-    .onAuthChange((user) => {
-    // 사용자가 바뀌면
+    authService.onAuthChange((user) => {
+    // 페이지에 들어오면 사용자 있는지 여부 확인
       if(user) successLogin(user)
-      else dispatch({type:"LOGOUT", payload: {} })
+      else loggedOut();
     });
-  },[])
+  },[]);
 
   return (
     <>

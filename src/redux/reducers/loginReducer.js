@@ -3,7 +3,7 @@ let initialState = {
     userInfo: {},
 };
 
-function loginReducer (state = initialState, action) {
+const loginReducer = (state = initialState, action) => {
     switch(action.type) {
         case "LOGIN":
             return {...state, userInfo : {...action.payload} ,isLogin: true };

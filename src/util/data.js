@@ -6,13 +6,13 @@ export const MAIN_DUMMY_DATA = [
         regTime:"2022-10-16",
     },
     {
-        imgUrl: "images/shepherd-dog.jpg",
+        imgUrl: "",
         title:"산토끼 토끼야 어디를 가느냐 깡총깡총 뛰어서 어디를 가느냐",
         memo:"날씨가 유난히 좋은날",
         regTime:"2022-10-16",
     },
     {
-        imgUrl: "images/shepherd-dog.jpg",
+        imgUrl: "images/woman-7009477_640.jpg",
         title:"산책이야기3",
         memo:"",
         regTime:"2022-10-16",

@@ -21,7 +21,7 @@ const Diary = (props) => {
 
   const [title, setTitle] = useState("");
   const [memo, setMemo] = useState("");
-  const [imgFile, setImgFile] = useState({});
+  const [imgFile, setImgFile] = useState(null);
 
   const saveImg = async() => {
     const uploaded = await imageUploader.upload(imgFile);
@@ -56,8 +56,8 @@ const Diary = (props) => {
           imgName: imgResult && imgResult.original_filename ? imgResult.original_filename : "",
           imgUrl: imgResult && imgResult.url ? imgResult.url : "",
         }
-        const result = repositoryService.newDiary({...diaryData});
-        if(result) navigate("/");
+        repositoryService.newDiary({...diaryData});
+        navigate("/");
       } else alert("일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
   }
 

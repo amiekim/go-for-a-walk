@@ -42,7 +42,7 @@ go-for-a-walk
 ├── src
     ├── components
         ├── common
-        ├── component
+        └── component
     ├── redux
         ├── reducers
             ├── index.js

@@ -47,7 +47,6 @@ const Update = (props) => {
 
       // for path
       const regTime = dayjs();
-  
       let diaryData = {};
       const chkTitle = xssCheck(title);
       const chkMemo = xssCheck(memo);
@@ -62,8 +61,8 @@ const Update = (props) => {
           updateTime: regTime.format('YYYY-MM-DD HH:mm'),
         }
         
-        const result = await repositoryService.updateDiary({...diaryData});
-        if(result) navigate("/");
+        repositoryService.updateDiary({...diaryData});
+        navigate("/");
       } else alert("일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
   }
   const delPage = async() => {
