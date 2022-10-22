@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/go-for-a-walk/static/css/main.f806e431.css",
-    "main.js": "/go-for-a-walk/static/js/main.401c0970.js",
+    "main.js": "/go-for-a-walk/static/js/main.a7af194a.js",
     "static/js/787.b2388b3d.chunk.js": "/go-for-a-walk/static/js/787.b2388b3d.chunk.js",
     "index.html": "/go-for-a-walk/index.html",
     "main.f806e431.css.map": "/go-for-a-walk/static/css/main.f806e431.css.map",
-    "main.401c0970.js.map": "/go-for-a-walk/static/js/main.401c0970.js.map",
+    "main.a7af194a.js.map": "/go-for-a-walk/static/js/main.a7af194a.js.map",
     "787.b2388b3d.chunk.js.map": "/go-for-a-walk/static/js/787.b2388b3d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f806e431.css",
-    "static/js/main.401c0970.js"
+    "static/js/main.a7af194a.js"
   ]
 }
