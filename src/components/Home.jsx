@@ -66,7 +66,9 @@ const Home = (props) => {
                           </div>
                         </div>)
                     }
-                    <Card.Body className='box-height140' onClick={() => goDetail(i)}>
+                    <Card.Body className='box-height140 btn-cursor-pointer' onClick={() => {
+                      if(userInfo && userInfo.userId) goDetail(i)
+                      }}>
                       <div className='card-text'>
                         {i.regTime}
                       </div>

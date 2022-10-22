@@ -16,12 +16,12 @@ function App(props) {
           <Routes>
             <Route path="/" element={<Home repositoryService={repositoryService} />} />
             <Route path="/login" element={<Login authService={authService} />} />
-            <Route path="/diary" element={
+            <Route path="diary" element={
             <PrivateRoute>
               <Diary repositoryService={repositoryService} FileInput={FileInput} imageUploader={imageUploader}/>
             </PrivateRoute>
             } />
-            <Route path={"/update/:diaryIndex"} element={
+            <Route path={"update/:diaryIndex"} element={
             <PrivateRoute>
               <Update repositoryService={repositoryService} FileInput={FileInput} imageUploader={imageUploader}/>
             </PrivateRoute>

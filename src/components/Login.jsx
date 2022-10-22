@@ -15,7 +15,6 @@ const Login = (props) => {
     // stsTokenManager.accessToken
     const userId = userInfo.uid;
     const userEmail = userInfo.email;
-    console.log("re", userInfo)
     dispatch({type:"LOGIN", payload: { userId, userEmail }});
     navigate("/");
   }

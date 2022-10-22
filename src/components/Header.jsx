@@ -29,7 +29,7 @@ const Header = (props) => {
     <>
         <Navbar key={"md"} expand={"md"} className="border">
           <Container>
-            <Navbar.Brand href="/">나의 산책이야기</Navbar.Brand>
+            <Navbar.Brand href={`${process.env.PUBLIC_URL}/`}>나의 산책이야기</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${"md"}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${"md"}`}
@@ -43,12 +43,12 @@ const Header = (props) => {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  {userEmail && <Nav.Link href="/diary">글쓰기</Nav.Link>}
+                  {userEmail && <Nav.Link href={`${process.env.PUBLIC_URL}/diary`}>글쓰기</Nav.Link>}
                   {userEmail ?
                     (
                       <div className='nav-link btn-cursor-pointer' onClick={onLogOut}>Logout</div>
                     ):
-                    (<Nav.Link href="/login">Login</Nav.Link>)
+                    (<Nav.Link href={`${process.env.PUBLIC_URL}/login`}>Login</Nav.Link>)
                   }
                 </Nav>
               </Offcanvas.Body>

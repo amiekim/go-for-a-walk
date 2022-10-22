@@ -14,6 +14,7 @@ import App from './App';
 import './index.css';
 import ImageUploader from './service/image_uploader';
 import ImageFileInput from './components/common/ImageFileInput';
+import { createRoot } from 'react-dom/client';
 
 // import configureStore from "./redux/store"
 // const { store, persistor } = configureStore();
@@ -24,12 +25,13 @@ const imageUploader = new ImageUploader();
 const FileInput = props => (<ImageFileInput {...props} imageUploader={imageUploader}/>)
 
 const repositoryService = new DiaryRepository(database)
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
 
 root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <App authService={authService} repositoryService={repositoryService} FileInput={FileInput} imageUploader={imageUploader}/>
         </BrowserRouter>
       </PersistGate>
