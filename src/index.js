@@ -29,7 +29,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter>
           <App authService={authService} repositoryService={repositoryService} FileInput={FileInput} imageUploader={imageUploader}/>
         </BrowserRouter>
       </PersistGate>
