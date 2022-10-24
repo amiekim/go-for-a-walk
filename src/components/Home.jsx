@@ -19,9 +19,10 @@ const Home = (props) => {
     setMyDiary(Object.values(data)||[]);
   }
   const readDiaryDatas = async() => {
-    if(userInfo && userInfo.userEmail) {
+    if(userInfo && userInfo.userId) {
       // 읽어들이기
       repositoryService.openDiary({
+        uid: userInfo.userId,
         userEmail: userInfo.userEmail,
         getData
       });

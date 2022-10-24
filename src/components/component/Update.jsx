@@ -52,12 +52,13 @@ const Update = (props) => {
       const chkMemo = xssCheck(memo);
       if(diaryIndex && userInfo && userInfo.userEmail) {
         diaryData = {
+          uid: userInfo.userId,
           divTime: diaryIndex,
           userEmail: userInfo.userEmail,
           title: chkTitle,
           memo: chkMemo,
-          imgName: imgResult && imgResult.original_filename ? imgResult.original_filename : "",
-          imgUrl: imgResult && imgResult.url ? imgResult.url : "",
+          imgName: imgResult && imgResult.original_filename ? imgResult.original_filename : state.imgName ? state.imgName : "",
+          imgUrl: imgResult && imgResult.url ? imgResult.url : savedImgUrl ? savedImgUrl : "",
           updateTime: regTime.format('YYYY-MM-DD HH:mm'),
         }
         
@@ -68,6 +69,7 @@ const Update = (props) => {
   const delPage = async() => {
     if(diaryIndex && userInfo && userInfo.userEmail) {
       let diaryData = {
+        uid: userInfo.userId,
         divTime: diaryIndex,
         userEmail: userInfo.userEmail,
       }
@@ -81,6 +83,7 @@ const Update = (props) => {
     if(state) {
       setMemo(state.memo||"");
       setTitle(state.title||"");
+      if(state.imgName)
       if(state.imgUrl) setSavedImgUrl(state.imgUrl);
     }
   },[])

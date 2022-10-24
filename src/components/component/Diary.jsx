@@ -48,6 +48,7 @@ const Diary = (props) => {
       const chkMemo = xssCheck(memo);
       if(regTime && userInfo && userInfo.userEmail) {
         diaryData = {
+          uid: userInfo.userId,
           divTime,
           regTime: regTime.format('YYYY-MM-DD HH:mm'),
           userEmail: userInfo.userEmail,
