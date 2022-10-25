@@ -46,20 +46,22 @@ const Update = (props) => {
       }
 
       // for path
-      const regTime = dayjs();
+      const updateTime = dayjs();
+      const regTime = state.regTime || ""
       let diaryData = {};
       const chkTitle = xssCheck(title);
       const chkMemo = xssCheck(memo);
-      if(diaryIndex && userInfo && userInfo.userEmail) {
+      if(diaryIndex && userInfo && userInfo.userId) {
         diaryData = {
           uid: userInfo.userId,
           divTime: diaryIndex,
+          regTime,
           userEmail: userInfo.userEmail,
           title: chkTitle,
           memo: chkMemo,
           imgName: imgResult && imgResult.original_filename ? imgResult.original_filename : state.imgName ? state.imgName : "",
           imgUrl: imgResult && imgResult.url ? imgResult.url : savedImgUrl ? savedImgUrl : "",
-          updateTime: regTime.format('YYYY-MM-DD HH:mm'),
+          updateTime: updateTime.format('YYYY-MM-DD HH:mm'),
         }
         
         repositoryService.updateDiary({...diaryData});
@@ -67,7 +69,7 @@ const Update = (props) => {
       } else alert("일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
   }
   const delPage = async() => {
-    if(diaryIndex && userInfo && userInfo.userEmail) {
+    if(diaryIndex && userInfo && userInfo.userId) {
       let diaryData = {
         uid: userInfo.userId,
         divTime: diaryIndex,
@@ -81,10 +83,10 @@ const Update = (props) => {
   
   useEffect(() => {
     if(state) {
-      setMemo(state.memo||"");
-      setTitle(state.title||"");
-      if(state.imgName)
-      if(state.imgUrl) setSavedImgUrl(state.imgUrl);
+      setMemo(state.memo || "");
+      setTitle(state.title || "");
+      setTitle(state.title || "");
+      setSavedImgUrl(state.imgUrl || null);
     }
   },[])
 

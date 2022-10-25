@@ -9,7 +9,6 @@ class DiaryRepository {
         const userId = userEmail.split("@");
         const emailAddr = userId[1].split(".")[0];
         const repoName = userId[0] + '_a_' + emailAddr;
-
         return set(ref(this.firebaseDatabase, 'user/' + uid + `/${divTime}`), {
             memoIndex: divTime,
             regTime,
@@ -21,13 +20,14 @@ class DiaryRepository {
           });
     }
     updateDiary(diaryData) {
-        const {uid, divTime, userEmail, title, memo, imgName, imgUrl, updateTime} = diaryData
+        const {uid, divTime, regTime, userEmail, title, memo, imgName, imgUrl, updateTime} = diaryData
         const userId = userEmail.split("@");
         const emailAddr = userId[1].split(".")[0];
         const repoName = userId[0] + '_a_' + emailAddr;
 
         return set(ref(this.firebaseDatabase, 'user/' + uid + `/${divTime}`), {
             memoIndex: divTime,
+            regTime,
             title,
             memo,
             imgName,
