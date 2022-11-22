@@ -1,10 +1,11 @@
+### 프로젝트 사이트 링크: https://go-for-a-walk.netlify.app
+### 프로젝트 시연영상: https://www.youtube.com/watch?v=j06JsdrnXCo
+```
+시연 영상에서 새창은 화면녹화가 되지않아 구글로그인화면, 이미지추가과정은 녹화되지 않았습니다.
+```
 ### 프로젝트 
 ```
 go-for-a-walk
-포트폴리오 사이트: https://go-for-a-walk.netlify.app/
-시연영상: https://www.youtube.com/watch?v=j06JsdrnXCo
-(시연 영상에서 새창은 화면녹화가 되지않아 구글로그인화면, 이미지추가과정은 녹화되지 않았습니다.)
-
 나의 산책이야기
 산책을 하고 난 후 남기는 기록
 ```
